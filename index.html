@@ -4,9 +4,42 @@
 <head>
   <meta charset="utf-8">
   <title>coffeerun</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css">
 </head>
 
-<body>
+<body class="container">
+  <header>
+    <h1>CoffeeRun</h1>
+  </header>
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <form data-coffe-order="form">
+        <div class="form-group">
+          <label for="coffeOrder">Coffe Order</label>
+          <input class="form-control" name="coffee" id="coffeOrder" autofocus>
+        </div>
+        <div class="form-group">
+          <label for="emailInput">Email</label>
+          <input class="form-control" type="email" name="email" id="emailInput" value="" placeholder="dr@who.com">
+        </div>
+        <div class="radio">
+          <label>
+            <input type="radio" name="size" value="short"> Short
+          </label>
+        </div>
+        <div class="radio">
+          <label>
+            <input type="radio" name="size" value="tall" checked> Tall
+          </label>
+        </div>
+          <div class="radio">
+          <label>
+            <input type="radio" name="size" value="grande"> Grande
+          </label>
+          </div>
+      </form>
+    </div>
+  </div>
   <script src="scripts/datastore.js" charset="utf-8"></script>
   <script src="scripts/truck.js" charset="utf-8"></script>
   <script src="scripts/main.js" charset="utf-8"></script>
