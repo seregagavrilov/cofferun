@@ -1,6 +1,6 @@
 (function (window){
   'use strict';
-  var App = window.app || {};
+  var App = window.App || {};
   var $ = window.jQuery;
 
   function FormHandler(selector){
@@ -12,9 +12,9 @@
       throw new Error('Cold not find element with selector: '+ selector);
     }
   }
-  FormHandler.prototype.addChangeHendler = function(selector, func){
+  FormHandler.prototype.addChangeHendler = function(selector, currentEvent, func){
       var element = this.$formElement.find(selector);
-      element.on('input change', func);
+      element.on(currentEvent, func);
     };
 
   FormHandler.prototype.addSubmitHandler = function(fn){
@@ -27,11 +27,11 @@
         data[item.name] = item.value;
         console.log(item.name + ' is ' + item.value);
       });
-      fn(data)
+      fn.call(this, data);
       this.reset();
       this.elements[0].focus();
     });
   };
   App.FormHandler = FormHandler;
-  window.app = App;
+  window.App = App;
 })(window);
