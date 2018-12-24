@@ -2,15 +2,19 @@
 'use strict';
 var FORM_SELECTOR = '[data-coffee-order="form"]';
 var CHECKLIST_SELECTOR = '[data-coffee-order="checklist"]';
+var SERVER_URL = 'http://coffeerun-v2-rest-api.herokuapp.com/api/coffeeorders';
 var App = window.App;
 var Truck = App.Truck;
 var DataStore = App.DataStore;
 var FormHandler = App.FormHandler;
 var CheckList = App.CheckList;
-var myTruck = new Truck('order for me', new DataStore());
 window.myTruck = myTruck;
 var checkList = new CheckList(CHECKLIST_SELECTOR);
 window.ckeckList = checkList;
+var RemoteDataStore = App.RemoteDataStore;
+var remoteDS = new RemoteDataStore(SERVER_URL);
+var myTruck = new Truck('order for me', remoteDS);
+var Validation = App.Validation;
 checkList.addClickHandler(myTruck.deliverOrder.bind(myTruck));
 
 
@@ -65,8 +69,9 @@ FormHandler.addSubmitHandler(function(data){
   changeColorSliderCommon();
 });
 
+FormHandler.addInputHandler(Validation.isCompanyEmail);
+FormHandler.addStrengForDecaf(Validation.forAcceptabilityDecaf)
 
 FormHandler.addChangeHendler("#strengthLevel", 'input change', changeValueSlider);
 FormHandler.addChangeHendler("#strengthLevel", 'input change', changeColorSlider);
-console.log(FormHandler);
 })(window);
