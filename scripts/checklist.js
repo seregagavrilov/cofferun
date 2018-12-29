@@ -23,17 +23,13 @@
         $(this.$element.find('#label')).css('color', '#c1c1c1');
         timer = setTimeout(function(a) {
           var email = event.target.value;
-          a.removeRow(email);
-          fn.call(this, email);
+          fn.call(this, email).then(function (){
+            this.removeRow(email)
+          }.bind(a));
         }, DELAY, this);
       } else {
-        clearTimeout(timer);
-        var items = myTruck.db.get($('#checkboxID').val());
-
-        for (var key in items) {
-          $('[name=' + key + ']').val(items[key])
-          }
-          fn.call(this, items);
+          clearTimeout(timer);
+          fn.call(this, $('#checkboxID').val());
       }
     }.bind(this)).on("dblclick", function(e) {
       e.preventDefault();

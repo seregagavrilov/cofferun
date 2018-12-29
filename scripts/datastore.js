@@ -2,26 +2,40 @@
   'use strict';
   var App = window.App || {};
   var data = {};
+  var Promise = window.Promise;
 
-function DataStore(){
-}
+  function DataStore() {
+  }
 
-DataStore.prototype.add = function (key, val){
-  data[key] = val;
-}
+  function promiseResolvedWith(value) {
+    var promise = new Promise(function (resolve, reject) {
+      if (value){
+        resolve(value);
+      } else {
+        reject(value)
+      }        
+    }.bind(this));
+    return promise;
+  }
 
-DataStore.prototype.get = function (key){
-  return data[key];
-}
+  DataStore.prototype.add = function (key, val) {
+    data[key] = val;
+    return promiseResolvedWith(val);
+  }
 
-DataStore.prototype.getAll = function(){
-  return data
-}
+  DataStore.prototype.get = function (key) {
+    return promiseResolvedWith(data[key]);
+  }
 
-DataStore.prototype.remove = function(key){
-  delete data[key]
-}
+  DataStore.prototype.getAll = function () {
+    return promiseResolvedWith(data);
+  }
 
-App.DataStore = DataStore;
-window.App = App;
+  DataStore.prototype.remove = function (key) {
+    delete data[key];
+    return promiseResolvedWith(null);
+  }
+
+  App.DataStore = DataStore;
+  window.App = App;
 })(window);

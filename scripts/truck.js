@@ -1,4 +1,4 @@
-(function(window) {
+(function (window) {
   'use strict'
   var App = window.App || {};
 
@@ -7,24 +7,33 @@
     this.db = db;
   }
 
-Truck.prototype.createOrder = function (order) {
-  console.log('Adding order for '+ order.emailAddress)
-  this.db.add(order.emailAddress, order)
-};
+  Truck.prototype.createOrder = function (order) {
+    console.log('Adding order for ' + order.emailAddress)
+    return this.db.add(order.emailAddress, order)
+  };
 
-Truck.prototype.deliverOrder = function (customerid){
-  console.log('Delivering order for '+ customerid);
-  this.db.remove(customerid)
-};
+  Truck.prototype.deliverOrder = function (customerid) {
+    console.log('Delivering order for ' + customerid);
+    return this.db.remove(customerid)
+  };
 
-Truck.prototype.printOrders = function (){
-  var costomerIDArray = Object.keys(this.db.getAll());
-  console.log('Truck #'+ this.truckid + ' has pending orders: ');
-  costomerIDArray.forEach(function  (id) {
-  console.log(this.db.get(id));
-}.bind(this));
-};
+  Truck.prototype.printOrders = function (printFn) {
+    return this.db.getAll()
+      .then(function (orders) {
+        var costomerIDArray = Object.keys(orders);
+        console.log('Truck #' + this.truckid + ' has pending orders: ');
+        costomerIDArray.forEach(function (id) {
+          console.log(orders[id]);
+          if (printFn){
+            printFn(orders[id]);
+          }
+        }.bind(this));
+      }.bind(this));
+  };
 
+  Truck.prototype.getOrder = function (email, fn) {
+    return this.db.get(email, fn)
+  };
   App.Truck = Truck;
   window.App = App;
 })(window)
