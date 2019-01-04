@@ -8,6 +8,7 @@
       throw new Error('No remote URL supplied.');
     }
     this.serverUrl = url;
+    this.remote = true;
   }
 
   RemoteDataStore.prototype.add = function(key, val, ) {

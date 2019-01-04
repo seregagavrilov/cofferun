@@ -5,15 +5,12 @@
   var Promise = window.Promise;
 
   function DataStore() {
+    this.remote = false;
   }
 
   function promiseResolvedWith(value) {
     var promise = new Promise(function (resolve, reject) {
-      if (value){
-        resolve(value);
-      } else {
-        reject(value)
-      }        
+        resolve(value);      
     }.bind(this));
     return promise;
   }

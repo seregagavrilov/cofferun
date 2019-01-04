@@ -5,6 +5,7 @@
   function Truck(truckid, db) {
     this.truckid = truckid;
     this.db = db;
+    this.dbRemote = db.remote;
   }
 
   Truck.prototype.createOrder = function (order) {

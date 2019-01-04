@@ -12,7 +12,8 @@
   window.ckeckList = checkList;
   var RemoteDataStore = App.RemoteDataStore;
   var remoteDS = new RemoteDataStore(SERVER_URL);
-  var myTruck = new Truck('order for me', new DataStore());
+  // var myTruck = new Truck('order for me', new DataStore());
+  var myTruck = new Truck('order for me', remoteDS);
   window.myTruck = myTruck;
   var Validation = App.Validation;
   // checkList.addClickHandler(myTruck.deliverOrder.bind(myTruck));

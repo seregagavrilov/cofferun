@@ -42,20 +42,22 @@
       event.preventDefault();
       var Truck = window.myTruck;
       var emailInput = document.getElementById('emailInput').value;
-      Truck.getOrder(emailInput).then(function () {
-        alert('this order alredy exist')
-      },
-        function (resp) {
-          var data = {};
-          $(this).serializeArray().forEach(function (item) {
-            data[item.name] = item.value;
-            console.log(item.name + ' is ' + item.value);
-          });
-          fn.call(this, data).then(function () {
-            this.reset();
-            this.elements[0].focus();
-          }.bind(this));
-        }.bind(this)
+      Truck.getOrder(emailInput).then(
+        (resp) => {
+          if (resp != null) {
+            alert('order alredy exists');
+          } else {
+            var data = {};
+            $(this).serializeArray().forEach(function (item) {
+              data[item.name] = item.value;
+              console.log(item.name + ' is ' + item.value);
+            });
+            fn.call(this, data).then(() => {  
+              this.reset();
+              this.elements[0].focus();
+            });
+          }
+        }
       );
     })
   }
